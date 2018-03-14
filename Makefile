@@ -2,9 +2,9 @@ CC=gcc
 CFLAGS=-Wall -g
 #LDLIBS= -pthread
 # or perhaps SOURCES= $(wildcard *.c)
-DEPS = scanner.h parsertest.h readfile.h
-# change to patsubt
-OBJECTS = main.o scanner.o parsertest.o readfile.o 
+DEPS = scanner.h testscanner.h token.h alphabet.h find.h metafile.h
+# change to patsub
+OBJECTS = main.o scanner.o testscanner.o token.o alphabet.o find.o metafile.o
 
 .PHONY: all clean
 
