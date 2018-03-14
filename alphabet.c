@@ -5,13 +5,13 @@
 #include "alphabet.h"
 #include "find.h"
 
-static char ops[] = "=><:+-*/%";
-static char delims[] = ".(),{};[]&";
+static const char ops[] = "=><:+-*/%";
+static const char delims[] = ".(),{};[]&";
 
 int
 isinalphabet(char c)
 {
-    if (isalnum(c) || find(c, ops) || find(c, delims))
+    if (isalnum(c) || findchar(c, ops) || findchar(c, delims))
         return 1;
     return 0;
 }

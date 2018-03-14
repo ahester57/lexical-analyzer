@@ -4,6 +4,8 @@
 #include "filter.h"
 #include "wordlist.h"
 
+static int commentflag = 0;
+
 // create a 2-d array representation of the source file
 // without spaces/ comments and include line numbers
 // this does not split source into tokens yet
@@ -46,13 +48,13 @@ trimline(char* dest, const char* src)
     char buf[256];
     char c = src[i];
 
-    int commentflag = 0;
     while (c != '\0')
     {
         if (c == '&') {
             // toggle comment
             commentflag = (commentflag + 1) % 2;
             if (commentflag == 0) {
+                // marks end of comment
                 i++;
                 c = src[i];
                 continue;
@@ -65,6 +67,7 @@ trimline(char* dest, const char* src)
             continue;
         }
         if (c != ' ') {
+            // if I may
             buf[j] = c;
             j++;
         }

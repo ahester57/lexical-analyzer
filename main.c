@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "testscanner.h"
 #include "metafile.h"
+#include "testscanner.h"
+#include "filter.h"
+#include "wordlist.h"
 
 int
 main(int argc, char** argv)
@@ -25,14 +27,18 @@ main(int argc, char** argv)
         return 1;
     }
 
+    // filter the file to get a wordlist_t
+    wordlist_t* filter = filtersource(fp);
+    fclose(fp);
+
     // call test_scanner() function with interface and prep
-    token_t* tk = testscanner(fp);
+    token_t* tk = testscanner(filter);
     printf("%s, %s, %d\n", tk->id, tk->instance, tk->line_num);
 
+    //printf("%d\n", iskeyword("stop"));
     // free fname if it was generated.
     if (!keyboardin) {
         free(fname);
     }
-    fclose(fp);
     return 0;
 }

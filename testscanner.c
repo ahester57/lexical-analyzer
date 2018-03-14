@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include "testscanner.h"
 #include "scanner.h"
+#include "wordlist.h"
 #include "token.h"
 
 token_t*
-testscanner(FILE* fp)
+testscanner(wordlist_t* filter)
 {
-    return scanner(fp);
+    return scanner(filter);
 }
