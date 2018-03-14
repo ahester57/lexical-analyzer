@@ -30,6 +30,10 @@ main(int argc, char** argv)
     // filter the file to get a wordlist_t
     wordlist_t* filter = filtersource(fp);
     fclose(fp);
+    int i;
+    for (i = 0; i < filter->length; i++) {
+        printf("%s", filter->list[i]);
+    }
 
     // call test_scanner() function with interface and prep
     token_t* tk = testscanner(filter);

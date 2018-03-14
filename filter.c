@@ -74,6 +74,11 @@ trimline(char* dest, const char* src)
         i++;
         c = src[i];
     }
+    if (commentflag) {
+        // if we end a line with an unclosed comment
+        buf[j] = '\n';
+        j++;
+    }
     buf[j] = '\0';
     strcpy(dest, buf);
     return;
