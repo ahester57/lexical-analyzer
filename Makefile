@@ -1,10 +1,11 @@
 CC=gcc
 CFLAGS=-Wall -g
 #LDLIBS= -pthread
-# or perhaps SOURCES= $(wildcard *.c)
-DEPS = scanner.h testscanner.h token.h alphabet.h find.h metafile.h
+SOURCES= $(wildcard *.c)
+DEPS = $(wildcard *.h)
 # change to patsub
-OBJECTS = main.o scanner.o testscanner.o token.o alphabet.o find.o metafile.o
+#OBJECTS = main.o scanner.o testscanner.o token.o alphabet.o find.o metafile.o filter.o
+OBJECTS = $(patsubst %.c, %.o, ${SOURCES})
 
 .PHONY: all clean
 
