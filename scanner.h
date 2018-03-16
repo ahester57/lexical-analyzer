@@ -3,6 +3,7 @@
 #include "wordlist.h"
 #include "token.h"
 
-token_t* scanner(wordlist_t* filter);
+token_t* scanner(const wordlist_t* filter);
+token_t settoken(const char* instance, const int linenum);
 
 #endif

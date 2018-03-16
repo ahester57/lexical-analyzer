@@ -3,6 +3,7 @@
 #include <string.h>
 #include "filter.h"
 #include "wordlist.h"
+#include "alphabet.h"
 
 static int commentflag = 0;
 
@@ -34,12 +35,14 @@ filtersource(FILE* fp)
             i++;
         }
     }
-    list->list = lines;
+    lines[i] = NULL;
+    list->list = lines; 
     list->length = i;
     return list;
 }
 
 // trim spaces and comments out
+// also symbols not in the alphabet 
 void
 trimline(char* dest, const char* src)
 {
@@ -50,6 +53,7 @@ trimline(char* dest, const char* src)
 
     while (c != '\0')
     {
+
         if (c == '&') {
             // toggle comment
             commentflag = (commentflag + 1) % 2;
@@ -60,8 +64,8 @@ trimline(char* dest, const char* src)
                 continue;
             }
         }
-        if (commentflag) {
-            // forget comments
+        if (commentflag || !isinalphabet(c)) {
+            // forget comments and symbols not in the alphabet
             i++;
             c = src[i];
             continue;
