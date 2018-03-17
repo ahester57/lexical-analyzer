@@ -35,7 +35,7 @@ filtersource(FILE* fp)
             i++;
         }
     }
-    lines[i] = NULL;
+    //lines[i] = NULL;
     list->list = lines; 
     list->length = i;
     return list;

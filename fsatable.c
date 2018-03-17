@@ -52,8 +52,6 @@ fsatable(const int state, const char nextchar)
                 return 2;
             }
             break;
-        default:
-
     }
     return nextstate;
 }

@@ -31,13 +31,14 @@ main(int argc, char** argv)
     wordlist_t* filter = filtersource(fp);
     fclose(fp);
     int i;
+    fprintf(stderr, "%d\n", filter->length);
     for (i = 0; i < filter->length; i++) {
-        printf("%s", filter->list[i]);
+        fprintf(stderr,"%s", filter->list[i]);
     }
 
     // call test_scanner() function with interface and prep
     token_t* tk = testscanner(filter);
-    printf("%s, %s, %d\n", tk->id, tk->instance, tk->line_num);
+    //printf("%s, %s, %d\n", tk->id, tk->instance, tk->line_num);
 
     //printf("%d\n", iskeyword("stop"));
     // free fname if it was generated.

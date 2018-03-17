@@ -13,10 +13,8 @@ static int column = 0;
 token_t*
 scanner(const wordlist_t* filter)
 {
-    token_t* token;// = (token_t*) malloc(sizeof(token_t));
-    token->instance = "instance";
-    token->line_num = 5;
-    token->id = NULL;
+    fprintf(stderr, "%c\n", 'c');
+    token_t* token = (token_t*) malloc(sizeof(token_t));
     while (token->id == NULL)
     {
         int i;
@@ -29,10 +27,10 @@ scanner(const wordlist_t* filter)
             {
                 char c = buf[j];
                 char look = buf[j+1];
+                printf("%c\n", c);
 
                 // do FSA tables stuff
-                token = fsadriver(filter);
-                //printf("%c\n", c);
+                //token = fsadriver(filter);
                 j++;
             }
         }

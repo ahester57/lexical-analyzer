@@ -9,4 +9,5 @@ token_t*
 testscanner(wordlist_t* filter)
 {
     return scanner(filter);
+    fprintf(stderr, "%c\n", 'c');
 }
