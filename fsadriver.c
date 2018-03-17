@@ -25,16 +25,16 @@ fsadriver(const wordlist_t* filter)
         nextstate = fsatable(state, nextchar);
 
         // If there is an error
-        if (nextstate < 0) {
+        if (nextstate == ERROR) {
             fprintf(stderr, "Error while parsing @ line ");
             fprintf(stderr, "%d\n", 69);
             return (token_t*)NULL;
         }
         // If we have reached a final state
-        if (nextstate >= 100) {
+        if (nextstate >= IDENTIFIER) {
                 if (nextstate == 100) {
                     strcpy(token->instance, buf);
-                    token->id = 100;
+                    token->id = "IDENTIFIER";
                 }
         } else {
             state = nextstate;

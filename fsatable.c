@@ -81,7 +81,49 @@ operatortable(const int state, const char nextchar)
 {
 
     enum STATE nextstate = ERROR;
-
+    switch (state)
+    {
+        case INITIAL:
+            if (nextchar == '=') {
+                nextstate = EQUALS;
+                break;
+            }
+            if (nextchar == '>') {
+                nextstate = GREATER;
+                break;
+            }
+            if (nextchar == '<') {
+                nextstate = LESS;
+                break;
+            }
+            if (nextchar == ':') {
+                nextstate = COLON;
+                break;
+            }
+            if (nextchar == '+') {
+                nextstate = PLUS;
+                break;
+            }
+            if (nextchar == '-') {
+                nextstate = MINUS;
+                break;
+            }
+            if (nextchar == '*') {
+                nextstate = STAR;
+                break;
+            }
+            if (nextchar == '/') {
+                nextstate = FWDSLASH;
+                break;
+            }
+            if (nextchar == '%') {
+                nextstate = PERCENT;
+                break;
+            }
+            break;
+        default:
+            nextstate = ERROR;
+    }
     return nextstate;
 }
 
@@ -94,37 +136,47 @@ delimtable(const int state, const char nextchar)
     enum STATE nextstate = ERROR;
     switch (state) 
     {
-        // only 1 case here, init. delims end any other token
-        case 0:
+        // init. delims end any other token
+        case INITIAL:
             if (nextchar == '.') {
                 nextstate = PERIOD;
+                break;
             }
             if (nextchar == '(') {
                 nextstate = LEFTPAREN;
+                break;
             }
             if (nextchar == ')') {
                 nextstate = RIGHTPAREN;
+                break;
             }
             if (nextchar == ',') {
                 nextstate = COMMA;
+                break;
             }
             if (nextchar == '{') {
                 nextstate = LEFTCURLY;
+                break;
             }
             if (nextchar == '}') {
                 nextstate = RIGHTCURLY;
+                break;
             }
             if (nextchar == ';') {
                 nextstate = SEMICOLON;
+                break;
             }
             if (nextchar == '[') {
                 nextstate = LEFTBRACKET;
+                break;
             }
             if (nextchar == ']') {
                 nextstate = RIGHTBRACKET;
+                break;
             }
             if (nextchar == '&') {
                 nextstate = AMPERSAND;
+                break;
             }
             break;
         default:
