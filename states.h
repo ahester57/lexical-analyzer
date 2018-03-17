@@ -9,7 +9,17 @@ enum STATE {
     OPERATOR,
     DELIM,
     IDENTIFIER,
-    INTEGER
+    INTEGER,
+    PERIOD,
+    LEFTPAREN,
+    RIGHTPAREN,
+    COMMA,
+    LEFTCURLY,
+    RIGHTCURLY,
+    SEMICOLON,
+    LEFTBRACKET,
+    RIGHTBRACKET,
+    AMPERSAND
 };
 
 #endif

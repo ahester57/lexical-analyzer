@@ -14,7 +14,11 @@ fsatable(const enum STATE state, const char nextchar)
     // same amount of calculations
     switch (state)
     {
-        // case 0: initial state
+        // case: error
+        case ERROR:
+            nextstate = ERROR;
+            break;
+        // case: initial state
         case INITIAL:
             if (isoperator(nextchar)) {
                 nextstate = OPERATOR;
@@ -29,7 +33,7 @@ fsatable(const enum STATE state, const char nextchar)
                 nextstate = TWO;
             }
             break;
-        // case 1: the beginnings of an identifier
+        // case: the beginnings of an identifier
         case ONE:
             if (isoperator(nextchar)) {
                 nextstate = IDENTIFIER;
@@ -44,7 +48,7 @@ fsatable(const enum STATE state, const char nextchar)
                 nextstate = ONE;
             }
             break;
-        // case 2: the beginnings of an integer
+        // case: the beginnings of an integer
         case TWO:
             if (isoperator(nextchar)) {
                 nextstate = INTEGER;
@@ -59,6 +63,8 @@ fsatable(const enum STATE state, const char nextchar)
                 nextstate = TWO;
             }
             break;
+        default:
+            nextstate = ERROR;
     }
     if (nextstate == OPERATOR) {
         nextstate = operatortable(state, nextchar);
@@ -91,27 +97,38 @@ delimtable(const int state, const char nextchar)
         // only 1 case here, init. delims end any other token
         case 0:
             if (nextchar == '.') {
-
+                nextstate = PERIOD;
             }
-            if (nextchar == '.') {
-
+            if (nextchar == '(') {
+                nextstate = LEFTPAREN;
             }
-            if (nextchar == '.') {
-
+            if (nextchar == ')') {
+                nextstate = RIGHTPAREN;
             }
-            if (nextchar == '.') {
-
+            if (nextchar == ',') {
+                nextstate = COMMA;
             }
-            if (nextchar == '.') {
-
+            if (nextchar == '{') {
+                nextstate = LEFTCURLY;
             }
-            if (nextchar == '.') {
-
+            if (nextchar == '}') {
+                nextstate = RIGHTCURLY;
             }
-            if (nextchar == '.') {
-
+            if (nextchar == ';') {
+                nextstate = SEMICOLON;
+            }
+            if (nextchar == '[') {
+                nextstate = LEFTBRACKET;
+            }
+            if (nextchar == ']') {
+                nextstate = RIGHTBRACKET;
+            }
+            if (nextchar == '&') {
+                nextstate = AMPERSAND;
             }
             break;
+        default:
+            nextstate = ERROR;
     }
     return nextstate;
 }
