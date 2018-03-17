@@ -8,6 +8,7 @@ enum STATE {
     TWO,
     OPERATOR,
     DELIM,
+    // Begin FINAL states
     IDENTIFIER,
     INTEGER,
     EQUALS,

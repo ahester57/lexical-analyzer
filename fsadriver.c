@@ -20,7 +20,7 @@ fsadriver(const wordlist_t* filter)
     char buf[64];
 
     nextchar = buf[i];
-    while (state < 100)
+    while (state < IDENTIFIER)
     {
         nextstate = fsatable(state, nextchar);
 
@@ -34,7 +34,7 @@ fsadriver(const wordlist_t* filter)
         if (nextstate >= IDENTIFIER) {
                 if (nextstate == 100) {
                     strcpy(token->instance, buf);
-                    token->id = "IDENTIFIER";
+                    token->id = gettoken(state);
                 }
         } else {
             state = nextstate;
