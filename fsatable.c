@@ -2,74 +2,116 @@
 #include <string.h>
 #include "fsatable.h"
 #include "alphabet.h"
+#include "states.h"
 
-int
-fsatable(const int state, const char nextchar)
+enum STATE
+fsatable(const enum STATE state, const char nextchar)
 {
-    int nextstate = NULL;
-    
+    enum STATE nextstate = ERROR;
+    // sorry for this 
+    // i should have a function that nextstate =s an int 
+    // that i switch upon, but in reality that is the
+    // same amount of calculations
     switch (state)
     {
-        case 0:
+        // case 0: initial state
+        case INITIAL:
             if (isoperator(nextchar)) {
-                return 'o';
+                nextstate = OPERATOR;
             }
             if (isdelim(nextchar)) {
-                return 'd';
+                nextstate = DELIM;
             }
             if (isletter(nextchar)) {
-                return 1;
+                nextstate = ONE;
             }
             if (isnumber(nextchar)) {
-                return 2;
+                nextstate = TWO;
             }
             break;
-        case 1:
+        // case 1: the beginnings of an identifier
+        case ONE:
             if (isoperator(nextchar)) {
-                return 'i';
+                nextstate = IDENTIFIER;
             }
             if (isdelim(nextchar)) {
-                return 'i';
+                nextstate = IDENTIFIER;
             }
             if (isletter(nextchar)) {
-                return 1;
+                nextstate = ONE;
             }
             if (isnumber(nextchar)) {
-                return 1;
+                nextstate = ONE;
             }
             break;
-        case 2:
+        // case 2: the beginnings of an integer
+        case TWO:
             if (isoperator(nextchar)) {
-                return 'n';
+                nextstate = INTEGER;
             }
             if (isdelim(nextchar)) {
-                return 'n';
+                nextstate = INTEGER;
             }
             if (isletter(nextchar)) {
-                return 'n';
+                nextstate = INTEGER;
             }
             if (isnumber(nextchar)) {
-                return 2;
+                nextstate = TWO;
             }
             break;
+    }
+    if (nextstate == OPERATOR) {
+        nextstate = operatortable(state, nextchar);
+    }
+    if (nextstate == DELIM) {
+        nextstate = delimtable(state, nextchar);
     }
     return nextstate;
 }
 
-int
+// operator token stuff
+enum STATE
 operatortable(const int state, const char nextchar)
 {
 
-    int nextstate = NULL;
+    enum STATE nextstate = ERROR;
 
     return nextstate;
 }
 
-int
+// delimiter token stuff,
+// divide and conquer even if it's not for efficiency
+enum STATE
 delimtable(const int state, const char nextchar)
 {
 
-    int nextstate = NULL;
+    enum STATE nextstate = ERROR;
+    switch (state) 
+    {
+        // only 1 case here, init. delims end any other token
+        case 0:
+            if (nextchar == '.') {
 
+            }
+            if (nextchar == '.') {
+
+            }
+            if (nextchar == '.') {
+
+            }
+            if (nextchar == '.') {
+
+            }
+            if (nextchar == '.') {
+
+            }
+            if (nextchar == '.') {
+
+            }
+            if (nextchar == '.') {
+
+            }
+            break;
+    }
     return nextstate;
 }

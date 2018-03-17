@@ -5,14 +5,15 @@
 #include "fsatable.h"
 #include "wordlist.h"
 #include "token.h"
+#include "states.h"
 
 
 token_t*
 fsadriver(const wordlist_t* filter)
 {
     int i = 0;
-    int state = 0;
-    int nextstate;
+    enum STATE state = INITIAL;
+    enum STATE nextstate = ERROR;
     token_t* token = (token_t*) malloc(sizeof(token_t));
     char nextchar;
     char* string;
