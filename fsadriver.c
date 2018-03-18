@@ -18,7 +18,7 @@ fsadriver(const wordlist_t* filter)
     enum STATE nextstate = ERROR;
     token_t* token = (token_t*) malloc(sizeof(token_t));
     char nextchar;
-    char string[256];
+    char string[256] = "";
 
     int numlines = filter->length;
     char buf[256];
@@ -27,9 +27,9 @@ fsadriver(const wordlist_t* filter)
         // first for loop for each line
 
         nextchar = buf[column];
+        string[i] = nextchar;
         while (state < IDENTIFIER && nextchar != '\0')
         {
-            string[i] = nextchar;
             nextstate = fsatable(state, nextchar);
             fprintf(stderr, "state = %d\n", state);
             fprintf(stderr, "next = %s\n", string);
@@ -48,10 +48,12 @@ fsadriver(const wordlist_t* filter)
                 token->id = gettoken(state);
                 token->instance = string;
                 token->line_num = line;
-                printf("%s, %s, %d\n", token->id, token->instance, token->line_num);
+                if (i < 1)
+                    column++;
                 return token;
             } else {
                 state = nextstate;
+                string[i] = nextchar;
                 i++;
                 column++;
                 nextchar = buf[column];

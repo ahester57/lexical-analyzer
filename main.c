@@ -37,7 +37,9 @@ main(int argc, char** argv)
     }
 
     // call test_scanner() function with interface and prep
-    token_t* tk = testscanner(filter);
+    for (i = 0; i < 5; i++) {
+        token_t* tk = testscanner(filter);
+    }
 
     //printf("%d\n", iskeyword("stop"));
     // free fname if it was generated.
