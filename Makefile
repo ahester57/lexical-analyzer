@@ -1,7 +1,7 @@
 CC=gcc
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g -I ./lex/
 #LDLIBS= -pthread
-DEPS = $(wildcard *.h)
+DEPS = $(wildcard ./lex/*.h)
 SOURCES= $(wildcard *.c)
 OBJECTS = $(patsubst %.c, %.o, ${SOURCES})
 
