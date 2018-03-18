@@ -2,10 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "filter.h"
+#include "trimline.h"
 #include "wordlist.h"
-#include "alphabet.h"
-
-static int commentflag = 0;
 
 // create a 2-d array representation of the source file
 // without spaces/ comments and include line numbers
@@ -34,8 +32,8 @@ filtersource(FILE* fp)
     {
         if (read > 0) {
             lines[i] = (char*) malloc(256*sizeof(char*));
+            // trim all characters not in the alphabet
             trimline(lines[i], buf);
-            //strcpy(lines[i], buf);
             i++;
         }
         read = getline(&buf, &len, fp);
@@ -45,51 +43,4 @@ filtersource(FILE* fp)
     list->list = lines; 
     list->length = i;
     return list;
-}
-
-// trim spaces and comments out
-// also symbols not in the alphabet 
-void
-trimline(char* dest, const char* src)
-{
-    int i = 0;
-    int j = 0;
-    char buf[256];
-    char c = src[i];
-
-    while (c != '\0')
-    {
-
-        if (c == '&') {
-            // toggle comment
-            commentflag = (commentflag + 1) % 2;
-            if (commentflag == 0) {
-                // marks end of comment
-                i++;
-                c = src[i];
-                continue;
-            }
-        }
-        if (commentflag || !isinalphabet(c)) {
-            // forget comments and symbols not in the alphabet
-            i++;
-            c = src[i];
-            continue;
-        }
-        if (c != ' ') {
-            // if I may
-            buf[j] = c;
-            j++;
-        }
-        i++;
-        c = src[i];
-    }
-    if (commentflag) {
-        // if we end a line with an unclosed comment
-        buf[j] = '\n';
-        j++;
-    }
-    buf[j] = '\0';
-    strcpy(dest, buf);
-    return;
 }

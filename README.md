@@ -4,9 +4,8 @@
 
 I am implementing option #3, that is an FSA table + table.
 
-    Where is the FSA table?  
-    What is the driver?  
-
+	The FSA table is convienently located is fsatable.c
+	The FAS driver is located in fsadriver.c
 
 
 A preprocessor and lexical analyzer for a programming language.
