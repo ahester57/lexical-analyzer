@@ -5,7 +5,7 @@
 typedef struct {
     const char* id;
     char* instance;
-    const int line_num;
+    int line_num;
 } token_t;
 
 const char* gettoken(const enum STATE state);

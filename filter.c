@@ -41,6 +41,7 @@ filtersource(FILE* fp)
     }
     //lines[i] = NULL;
     list->list = lines; 
+    list->currentword = list->list[0];
     list->length = i;
     return list;
 }
