@@ -3,6 +3,6 @@
 #include "wordlist.h"
 #include "token.h"
 
-token_t* testscanner(wordlist_t* filter);
+int testscanner(token_t** tokenlist, wordlist_t* filter);
 
 #endif

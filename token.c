@@ -37,12 +37,14 @@ const char* TOKENS[] = {
     "EOFTK"
 };
 
+// get the token indexed by state
 const char*
 gettoken(const enum STATE state)
 {
     return TOKENS[state];
 }
 
+// is this the EOF token?
 int
 isEOFtoken(const token_t* token)
 {
@@ -51,6 +53,7 @@ isEOFtoken(const token_t* token)
     return 0;
 }
 
+// make a token
 void
 maketoken(token_t* token,
           const enum STATE state,
@@ -63,12 +66,16 @@ maketoken(token_t* token,
     token->line_num = line;
 }
 
+// display a list of tokens
 void
-copytoken(token_t* dest, const token_t* src)
+displaytokens(token_t** tokenlist, const int numtokens)
 {
-    dest = (token_t*) malloc(sizeof(token_t));
-    dest->instance = (char*) malloc(32*sizeof(char));
-    strcpy(dest->instance, src->instance);
-    dest->id = src->id;
-    dest->line_num = src->line_num;
+    printf("\nFinal token list, in order:\n");
+    printf("========================\n");
+    int i;
+    for (i = 0; i < numtokens; i++) {
+        const token_t* t = tokenlist[i];
+        printf("%s, %s, %d\n", t->id, t->instance, t->line_num);
+    }
+    printf("========================\n");
 }

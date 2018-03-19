@@ -7,9 +7,12 @@
 #include "token.h"
 #include "states.h"
 
+// for tracking place in the filter
 static int line = 0;
 static int column = 0;
 
+// I apologize for how ridiculous this function is.
+// I'll split it up in the future
 token_t*
 fsadriver(const wordlist_t* filter)
 {
@@ -23,26 +26,28 @@ fsadriver(const wordlist_t* filter)
     int numlines = filter->length;
     char buf[256];
 
-    for (line; line < numlines; line++) {
+    for (line = line; line < numlines; line++) {
+        // first for loop for each line
         //fprintf(stderr, "line = %s\n", filter->list[line]);
         if (filter->list[line] == (char*)NULL) {
-            maketoken(token, EOFILE, "EOF", line);
-            return token;
-        } 
-        strcpy(buf, filter->list[line]);
-        // first for loop for each line
+            // If next line is NULL,
+            // \t is a special char here, signifies 
+            // EOF to FSA
+            nextchar = '\t';            
+        } else {
+            // copy new line to buffer
+            strcpy(buf, filter->list[line]);
+            nextchar = buf[column];
+        }
 
-        nextchar = buf[column];
+        // loop until FINAL state, breaks on end of line
+        // which allows for multi-line tokens
         while (state < IDENTIFIER)
         {
-/*              if (nextchar == '\0') {
-                column = 0;
-                //break;
-            }  */
             nextstate = fsatable(state, nextchar);
-            fprintf(stderr, "state = %d\n", state);
-            fprintf(stderr, "string = %s\n", string);
-            fprintf(stderr, "next = %c\n", nextchar);
+            fprintf(stderr, "state\t = %d\n", state);
+            fprintf(stderr, "string\t = %s\n", string);
+            fprintf(stderr, "next\t = %c,\n", nextchar);
 
             // If there is an error
             if (nextstate == ERROR) {
@@ -87,12 +92,12 @@ fsadriver(const wordlist_t* filter)
                     column = 0;
                     break;
                 } 
-/*                 if (nextchar == '\0') {
-                    column = 0;
-                    break;
-                } */
             }
+            // inside while
         }
+        // outside of while
+        // token is still processing.
+        // new lines do not end scanning
     }
     maketoken(token, EOFILE, "EOF", line);
     return token;
