@@ -4,6 +4,6 @@
 #include <stdio.h>
 
 wordlist_t* filtersource(FILE* fp);
-void trimline(char* dest, const char* src);
+void displayfilter(wordlist_t* filter);
 
 #endif

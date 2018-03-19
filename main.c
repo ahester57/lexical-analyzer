@@ -31,26 +31,37 @@ main(int argc, char** argv)
     // filter the file to get a wordlist_t
     wordlist_t* filter = filtersource(fp);
     fclose(fp);
-    int i;
-    fprintf(stderr, "NUM_LINES = %d\n", filter->length);
-    for (i = 0; i < filter->length; i++) {
-        if (filter->list[i] == NULL)
-            break;
-        fprintf(stderr, "%s\n", filter->list[i]);
-    }
 
-    // call test_scanner() function with interface and prep
+    // Display filtered source
+    displayfilter(filter);
+
+    token_t** tokenlist = (token_t**) malloc(2048*sizeof(token_t*));
+    // call test_scanner() function until EOF 
+    printf("Watch the FSA work ... \n");
+    printf("========================\n");
+    int i = 0;
     while (1)
     {
         token_t* tk = testscanner(filter);
         if (tk == (token_t*)NULL)
             return 1;
         printf("%s, %s, %d\n", tk->id, tk->instance, tk->line_num);
+        tokenlist[i] = tk;
+        i++;
         if (isEOFtoken(tk))
             break;
     }
+    int numtokens = i;
+    printf("========================\n");
 
-    //printf("%d\n", iskeyword("stop"));
+    printf("\nFinal token list, in order:\n");
+    printf("========================\n");
+    for (i = 0; i < numtokens; i++) {
+        token_t* t = tokenlist[i];
+        printf("%s, %s, %d\n", t->id, t->instance, t->line_num);
+    }
+    printf("========================\n");
+
     // free fname if it was generated.
     if (!keyboardin) {
         free(fname);

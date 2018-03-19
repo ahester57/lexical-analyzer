@@ -14,5 +14,6 @@ void maketoken(token_t* token,
               const enum STATE state,
               char* string,
               const int line);
+void copytoken(token_t* dest, const token_t* src);
 
 #endif

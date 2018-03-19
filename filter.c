@@ -48,3 +48,20 @@ filtersource(FILE* fp)
     list->length = i+1;
     return list;
 }
+
+void
+displayfilter(wordlist_t* filter)
+{
+    int i;
+    fprintf(stderr, "\nSource after filter and trim:\n");
+    fprintf(stderr, "NUM_LINES = %d\n", filter->length-1);
+    fprintf(stderr, "========================\n");
+    for (i = 0; i < filter->length; i++) {
+        if (filter->list[i] == NULL) {
+            fprintf(stderr, "%s\n", "EOF");
+            break;
+        }
+        fprintf(stderr, "%s\n", filter->list[i]);
+    }
+    fprintf(stderr, "========================\n\n");
+}
