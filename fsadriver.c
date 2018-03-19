@@ -53,6 +53,7 @@ fsadriver(const wordlist_t* filter)
             if (nextstate == ERROR) {
                 fprintf(stderr, "Error while parsing @ line ");
                 fprintf(stderr, "%d\n", line);
+                fprintf(stderr, "Check last state and next for info.\n");
                 return (token_t*)NULL;
             }
             // If we have reached a final state
