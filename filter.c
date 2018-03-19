@@ -34,8 +34,12 @@ filtersource(FILE* fp)
             lines[i] = (char*) malloc(256*sizeof(char*));
             // trim all characters not in the alphabet
             trimline(lines[i], buf);
-            i++;
+            if (strlen(lines[i]) > 0)
+                i++;
+            else
+                free(lines[i]);
         }
+        //free(buf);
         read = getline(&buf, &len, fp);
         // at the eof errno is set by getline and read is set to -1
     }

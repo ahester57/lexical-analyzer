@@ -15,6 +15,5 @@ scanner(const wordlist_t* filter)
     token_t* tk = (token_t*) malloc(sizeof(token_t));
     tk = fsadriver(filter);
 
-    printf("%s, %s, %d\n", tk->id, tk->instance, tk->line_num);
     return tk;
 }

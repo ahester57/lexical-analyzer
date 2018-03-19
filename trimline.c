@@ -35,6 +35,9 @@ trimline(char* dest, const char* src)
                 c = src[i];
                 continue;
             }
+            i++;
+            c = src[i];
+            continue;
         }
         if (commentflag || !isinalphabet(c)) {
             // forget comments and symbols not in the alphabet
@@ -52,7 +55,6 @@ trimline(char* dest, const char* src)
     }
     if (commentflag) {
         // if we end a line with an unclosed comment
-        buf[j] = '\n';
         j++;
     }
     buf[j] = '\0';

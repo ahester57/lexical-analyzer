@@ -34,7 +34,9 @@ main(int argc, char** argv)
     int i;
     fprintf(stderr, "NUM_LINES = %d\n", filter->length);
     for (i = 0; i < filter->length; i++) {
-        //fprintf(stderr,"%s", filter->list[i]);
+        if (filter->list[i] == NULL)
+            break;
+        fprintf(stderr, "%s\n", filter->list[i]);
     }
 
     // call test_scanner() function with interface and prep
@@ -43,6 +45,7 @@ main(int argc, char** argv)
         token_t* tk = testscanner(filter);
         if (tk == (token_t*)NULL)
             return 1;
+        printf("%s, %s, %d\n", tk->id, tk->instance, tk->line_num);
         if (isEOFtoken(tk))
             break;
     }
