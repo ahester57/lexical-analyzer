@@ -72,14 +72,18 @@ fsadriver(const wordlist_t* filter)
 
                 maketoken(token, state, string, lastline);
 
+                // this is needed for avoiding infinite loops in table
                 if (i < 1)
                     column++;
+
+                // is the next char the end?
+                // if so let the position vars know
                 nextchar = buf[column];
                 if (nextchar == '\0') {
                     column = 0;
                     line++;
-                    //break;
                 } 
+                // Return that token
                 return token;
             // If we're still not done
             } else {
@@ -99,6 +103,8 @@ fsadriver(const wordlist_t* filter)
         // token is still processing.
         // new lines do not end scanning
     }
+    // we did not encounter an error, but no token was made
+    // must be END OF FILE
     maketoken(token, EOFILE, "EOF", line);
     return token;
 }

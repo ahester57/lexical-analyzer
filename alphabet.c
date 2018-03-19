@@ -8,6 +8,7 @@
 static const char ops[] = "=><:+-*/%";
 static const char delims[] = ".(),{};[]&";
 
+// fairly self-explainable
 int
 isinalphabet(const char c)
 {

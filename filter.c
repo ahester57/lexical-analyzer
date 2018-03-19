@@ -31,7 +31,7 @@ filtersource(FILE* fp)
     while (read != -1)
     {
         if (read > 0) {
-            lines[i] = (char*) malloc(256*sizeof(char*));
+            lines[i] = (char*) malloc(256*sizeof(char));
             // trim all characters not in the alphabet
             trimline(lines[i], buf);
             if (strlen(lines[i]) > 0)
@@ -39,7 +39,8 @@ filtersource(FILE* fp)
             else
                 free(lines[i]);
         }
-        //free(buf);
+        free(buf);
+        buf = (char*) malloc(256*sizeof(char));
         read = getline(&buf, &len, fp);
         // at the eof errno is set by getline and read is set to -1
     }
@@ -49,6 +50,7 @@ filtersource(FILE* fp)
     return list;
 }
 
+// Display the filtered source
 void
 displayfilter(wordlist_t* filter)
 {

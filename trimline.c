@@ -31,32 +31,22 @@ trimline(char* dest, const char* src)
             commentflag = (commentflag + 1) % 2;
             if (commentflag == 0) {
                 // marks end of comment
-                i++;
-                c = src[i];
+                c = src[++i];
                 continue;
             }
-            i++;
-            c = src[i];
-            continue;
         }
         if (commentflag || !isinalphabet(c)) {
             // forget comments and symbols not in the alphabet
-            i++;
-            c = src[i];
+            c = src[++i];
             continue;
         }
         if (c != ' ') {
             // if I may
-            buf[j] = c;
-            j++;
+            buf[j++] = c;
         }
-        i++;
-        c = src[i];
+        c = src[++i];
     }
-    if (commentflag) {
-        // if we end a line with an unclosed comment
-        j++;
-    }
+
     buf[j] = '\0';
     strcpy(dest, buf);
     return;
