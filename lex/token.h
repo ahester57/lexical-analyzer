@@ -10,5 +10,9 @@ typedef struct {
 
 const char* gettoken(const enum STATE state);
 int isEOFtoken(const token_t* token);
+void maketoken(token_t* token,
+              const enum STATE state,
+              char* string,
+              const int line);
 
 #endif

@@ -26,9 +26,7 @@ fsadriver(const wordlist_t* filter)
     for (line; line < numlines; line++) {
         //fprintf(stderr, "line = %s\n", filter->list[line]);
         if (filter->list[line] == (char*)NULL) {
-            token->id = gettoken(EOFILE);
-            token->instance = "EOF";
-            token->line_num = line;
+            maketoken(token, EOFILE, "EOF", line);
             return token;
         } 
         strcpy(buf, filter->list[line]);
@@ -55,15 +53,19 @@ fsadriver(const wordlist_t* filter)
             // If we have reached a final state
             if (nextstate >= IDENTIFIER) {
                 state = nextstate;
-                // If we have a single character token, add the current char
+                // If we have a single character token,
+                // add the current char to string
                 if (i == 0)
                     string[i] = nextchar;
 
-                token->instance = (char*) malloc(32*sizeof(char));
-                strcpy(token->instance, string);
-                token->id = gettoken(state);
-                token->instance = string;
-                token->line_num = line;
+                // the following corrects error of line number
+                // when the lookahead requires going to the
+                // next line
+                int lastline = line;
+                if (column == 0 && i != 0)
+                    lastline--;
+
+                maketoken(token, state, string, lastline);
 
                 if (i < 1)
                     column++;
@@ -92,9 +94,7 @@ fsadriver(const wordlist_t* filter)
             }
         }
     }
-    token->id = gettoken(EOFILE);
-    token->instance = "EOF";
-    token->line_num = line;
+    maketoken(token, EOFILE, "EOF", line);
     return token;
 }
 

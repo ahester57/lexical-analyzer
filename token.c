@@ -50,3 +50,16 @@ isEOFtoken(const token_t* token)
         return 1;
     return 0;
 }
+
+void
+maketoken(token_t* token,
+          const enum STATE state,
+          char* string,
+          const int line)
+{
+    token->instance = (char*) malloc(32*sizeof(char));
+    strcpy(token->instance, string);
+    token->id = gettoken(state);
+    token->instance = string;
+    token->line_num = line;
+}
