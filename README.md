@@ -36,4 +36,7 @@ The driver identifies states and tokens using FSA table located
 in ```fsatable.c```. This table is essentially switch and if 
 statements.
 
+Also, I did not choose to separate keywords from identifiers yet. I plan 
+on doing this one level up in the parser project.
+
 https://github.com/ahester57/lexical-analyzer
