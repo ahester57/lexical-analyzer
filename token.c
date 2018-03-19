@@ -60,7 +60,7 @@ maketoken(token_t* token,
           char* string,
           const int line)
 {
-    token->instance = (char*) malloc(32*sizeof(char));
+    token->instance = (char*) malloc(256*sizeof(char));
     strcpy(token->instance, string);
     token->id = gettoken(state);
     token->line_num = line;
