@@ -9,5 +9,6 @@ typedef struct {
 } token_t;
 
 const char* gettoken(const enum STATE state);
+int isEOFtoken(const token_t* token);
 
 #endif

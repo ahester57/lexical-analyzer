@@ -6,5 +6,6 @@ int isletter(const char c);
 int isnumber(const char c);
 int isoperator(const char c);
 int isdelim(const char c);
+int isendofline(const char c);
 
 #endif

@@ -39,9 +39,8 @@ filtersource(FILE* fp)
         read = getline(&buf, &len, fp);
         // at the eof errno is set by getline and read is set to -1
     }
-    //lines[i] = NULL;
+    lines[i] = (char*)NULL;
     list->list = lines; 
-    list->currentword = list->list[0];
-    list->length = i;
+    list->length = i+1;
     return list;
 }

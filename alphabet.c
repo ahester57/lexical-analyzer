@@ -49,3 +49,11 @@ isdelim(const char c)
         return 1;
     return 0;
 }
+
+int
+isendofline(const char c)
+{
+    if (c == '\0')
+        return 1;
+    return 0;
+}

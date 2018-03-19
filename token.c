@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "token.h"
 #include "states.h"
 
@@ -40,4 +41,12 @@ const char*
 gettoken(const enum STATE state)
 {
     return TOKENS[state];
+}
+
+int
+isEOFtoken(const token_t* token)
+{
+    if (strcmp(token->id, "EOFTK") == 0)
+        return 1;
+    return 0;
 }

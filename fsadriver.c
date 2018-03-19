@@ -22,22 +22,34 @@ fsadriver(const wordlist_t* filter)
 
     int numlines = filter->length;
     char buf[256];
+
     for (line; line < numlines; line++) {
+        //fprintf(stderr, "line = %s\n", filter->list[line]);
+        if (filter->list[line] == (char*)NULL) {
+            token->id = gettoken(EOFILE);
+            token->instance = "EOF";
+            token->line_num = line;
+            return token;
+        } 
         strcpy(buf, filter->list[line]);
         // first for loop for each line
 
         nextchar = buf[column];
-
-        while (state < IDENTIFIER && nextchar != '\0')
+        while (state < IDENTIFIER)
         {
+/*              if (nextchar == '\0') {
+                column = 0;
+                //break;
+            }  */
             nextstate = fsatable(state, nextchar);
             fprintf(stderr, "state = %d\n", state);
             fprintf(stderr, "string = %s\n", string);
+            fprintf(stderr, "next = %c\n", nextchar);
 
             // If there is an error
             if (nextstate == ERROR) {
                 fprintf(stderr, "Error while parsing @ line ");
-                fprintf(stderr, "%d\n", 69);
+                fprintf(stderr, "%d\n", line);
                 return (token_t*)NULL;
             }
             // If we have reached a final state
@@ -55,10 +67,12 @@ fsadriver(const wordlist_t* filter)
 
                 if (i < 1)
                     column++;
+                nextchar = buf[column];
                 if (nextchar == '\0') {
                     column = 0;
                     line++;
-                }
+                    //break;
+                } 
                 return token;
             // If we're still not done
             } else {
@@ -70,10 +84,17 @@ fsadriver(const wordlist_t* filter)
                 if (nextchar == '\0') {
                     column = 0;
                     break;
-                }
+                } 
+/*                 if (nextchar == '\0') {
+                    column = 0;
+                    break;
+                } */
             }
         }
     }
-    return (token_t*)NULL;
+    token->id = gettoken(EOFILE);
+    token->instance = "EOF";
+    token->line_num = line;
+    return token;
 }
 

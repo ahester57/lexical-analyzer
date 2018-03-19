@@ -4,6 +4,7 @@
 #include "testscanner.h"
 #include "filter.h"
 #include "wordlist.h"
+#include "token.h"
 
 int
 main(int argc, char** argv)
@@ -37,8 +38,13 @@ main(int argc, char** argv)
     }
 
     // call test_scanner() function with interface and prep
-    for (i = 0; i < 5; i++) {
+    while (1)
+    {
         token_t* tk = testscanner(filter);
+        if (tk == (token_t*)NULL)
+            return 1;
+        if (isEOFtoken(tk))
+            break;
     }
 
     //printf("%d\n", iskeyword("stop"));
