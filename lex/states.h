@@ -29,7 +29,8 @@ enum STATE {
     SEMICOLON,
     LEFTBRACKET,
     RIGHTBRACKET,
-    AMPERSAND
+    AMPERSAND,
+    EOFILE
 };
 
 #endif

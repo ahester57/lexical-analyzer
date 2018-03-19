@@ -32,7 +32,8 @@ const char* TOKENS[] = {
     ";TK",
     "[TK",
     "]TK",
-    "&TK"
+    "&TK",
+    "EOFTK"
 };
 
 const char*
